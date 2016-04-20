@@ -1,5 +1,5 @@
 /**
- *  Math[extensions]()
+ *	Math[extensions]()
  */
 ;;(function() {
 	/*	[ 'difference', 'max', 'mean', 'median', 'medianMinMax', 'min', 'minMax', 'maxMin', 'mode', 'range', 'sum' ]	*/
@@ -58,7 +58,7 @@
 			switch (resType) {
 				case "difference":
 					araNum.sort(function(a, b) { return a - b; });
-					return function() { var a = 0; for (var i=0;i<araNum.length;i++) a -= araNum[i]; return a; }();
+					return function() { var a = 0; for (var i=0;i<araNum.length;i++) a -= parseFloat(araNum[i]); return a; }();
 				case "max":
 					return max;
 				case "mean":
@@ -108,9 +108,15 @@
 					return ret.length == 1 ? ret[0] : ret.length > 1 ? ret : -Infinity;
 				case "obj":
 					return { min: min, max: max };
+				case "product":
+					araNum.sort(function(a, b) { return a - b; });
+					return function() { var a = parseFloat(araNum[0]); for (var i=1;i<araNum.length;i++) a *= parseFloat(araNum[i]); return a; }();
+				case "quotient":
+					araNum.sort(function(a, b) { return a - b; });
+					return function() { var a = parseFloat(araNum[0]); for (var i=1;i<araNum.length;i++) a /= parseFloat(araNum[i]); return a; }();
 				case "sum":
 					araNum.sort(function(a, b) { return a - b; });
-					return function() { var a = 0; for (var i=0;i<araNum.length;i++) a += araNum[i]; return a; }();
+					return function() { var a = 0; for (var i=0;i<araNum.length;i++) a += parseFloat(araNum[i]); return a; }();
 				default:
 					return [ min, max ];
 			};
@@ -201,6 +207,24 @@
 		}
 	});
 
+	Object.defineProperty(Math, 'product', {
+		value: function() {
+			var a = [];
+			for (x in arguments) a.push(arguments[x]);
+			a.push("product");
+			return getMinMax.apply(this, a);
+		}
+	});
+	
+	Object.defineProperty(Math, 'quotient', {
+		value: function() {
+			var a = [];
+			for (x in arguments) a.push(arguments[x]);
+			a.push("quotient");
+			return getMinMax.apply(this, a);
+		}
+	});
+	
 	Object.defineProperty(Math, 'range', {
 		value: function() {
 			var a = [];
@@ -223,7 +247,7 @@
 		value: function() {
 			if (!console || !console['log']) return void 0;
 			var args = arguments.length ? arguments : [9,5,8,1,-3,-3,'09.230.236',6,6,6,-5.7,-2,1,3],
-				exts = [ 'difference', 'max', 'mean', 'median', 'medianMinMax', 'min', 'minMax', 'maxMin', 'mode', 'range', 'sum' ];
+				exts = [ 'difference', 'max', 'mean', 'median', 'medianMinMax', 'min', 'minMax', 'maxMin', 'mode', 'product', 'quotient', 'range', 'sum' ];
 			if (args[0] instanceof Array) args = args[0];
 			for (x in exts) {
 				var str = "Math." + exts[x] + "(" + args.toString() + "):";
