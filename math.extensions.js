@@ -1,13 +1,26 @@
-/**
- *	Math[extensions]()
- */
-;;(function() {
+/**	Math[extensions]()
+ *	Math.average()
+ *	Math.difference()
+ *	Math.max()
+ *	Math.mean()
+ *	Math.median()
+ *	Math.medianMinMax()
+ *	Math.min()
+ *	Math.minMax()
+ *	Math.mode()
+ *	Math.product()
+ *	Math.quotient()
+ *	Math.range()
+ *	Math.sum()
+ *	Math.runExample()
+ **/
+;(function() {
 	/*	[ 'difference', 'max', 'mean', 'median', 'medianMinMax', 'min', 'minMax', 'maxMin', 'mode', 'range', 'sum' ]	*/
 	var args = Array.prototype.slice.call(arguments, 1),
 		mathMax = Math.max,
 		mathMin = Math.min;
 
-	function getMinMax() {
+	function doMath() {
 		var args = arguments,
 			araNum = new Array(),
 			resType = '',
@@ -56,6 +69,9 @@
 			else max = mathMax.apply(null, araNum);
 
 			switch (resType) {
+				case "average":
+					araNum.sort(function(a, b) { return a - b; });
+					return function() { var a = 0; for (var i=0;i<araNum.length;i++) a += parseFloat(araNum[i]); return a / araNum.length; }();
 				case "difference":
 					araNum.sort(function(a, b) { return a - b; });
 					return function() { var a = 0; for (var i=0;i<araNum.length;i++) a -= parseFloat(araNum[i]); return a; }();
@@ -127,134 +143,106 @@
 		return !resType ? [Infinity, -Infinity] : resType == 'min' ? Infinity : -Infinity;
 	}
 	
-	Object.defineProperty(Math, 'difference', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			a.push("difference");
-			return getMinMax.apply(this, a);
-		}
-	});
-	
-	Object.defineProperty(Math, 'max', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			a.push("max");
-			return getMinMax.apply(this, a);
-		}
-	});
-	
-	Object.defineProperty(Math, 'mean', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			a.push("mean");
-			return getMinMax.apply(this, a);
-		}
-	});
-	
-	Object.defineProperty(Math, 'median', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			a.push("median");
-			return getMinMax.apply(this, a);
-		}
-	});
-
-	Object.defineProperty(Math, 'medianMinMax', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			a.push("medianminmax");
-			return getMinMax.apply(this, a);
-		}
-	});
-
-	Object.defineProperty(Math, 'min', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			a.push("min");
-			return getMinMax.apply(this, a);
-		}
-	});
-
-	Object.defineProperty(Math, 'minMax', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			return getMinMax.apply(this, a);
-		}
-	});
-
-	Object.defineProperty(Math, 'maxMin', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			var ret = getMinMax.apply(this, a);
-			return ret instanceof Array ? ret.sort(function(a,b) { return b - a; }) : ret;
-		}
-	});
-
-	Object.defineProperty(Math, 'mode', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			a.push("mode");
-			return getMinMax.apply(this, a);
-		}
-	});
-
-	Object.defineProperty(Math, 'product', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			a.push("product");
-			return getMinMax.apply(this, a);
-		}
-	});
-	
-	Object.defineProperty(Math, 'quotient', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			a.push("quotient");
-			return getMinMax.apply(this, a);
-		}
-	});
-	
-	Object.defineProperty(Math, 'range', {
-		value: function() {
-			var a = [];
-			for (x in arguments) if ((''+arguments[x]).toLowerCase() != 'min' && (''+arguments[x]).toLowerCase() != 'max') a.push(arguments[x]);
-			var minMax = getMinMax.apply(this, a);
-			return minMax instanceof Array && minMax.length == 2 ? minMax[1] - minMax[0] : Infinity;
-		}
-	});
-
-	Object.defineProperty(Math, 'sum', {
-		value: function() {
-			var a = [];
-			for (x in arguments) a.push(arguments[x]);
-			a.push("sum");
-			return getMinMax.apply(this, a);
-		}
-	});
-	
-	Object.defineProperty(Math, 'runExample', {
-		value: function() {
-			if (!console || !console['log']) return void 0;
-			var args = arguments.length ? arguments : [9,5,8,1,-3,-3,'09.230.236',6,6,6,-5.7,-2,1,3],
-				exts = [ 'difference', 'max', 'mean', 'median', 'medianMinMax', 'min', 'minMax', 'maxMin', 'mode', 'product', 'quotient', 'range', 'sum' ];
-			if (args[0] instanceof Array) args = args[0];
-			for (x in exts) {
-				var str = "Math." + exts[x] + "(" + args.toString() + "):";
-				console.log(str + (str.length < 56 ? "\t\t\t" : (str.length < 60 ? "\t\t" : "\t")), Math[exts[x]].apply(Math, args));
+	var props = {
+			'average': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				a.push("average");
+				return doMath.apply(this, a);
+			},
+			'difference': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				a.push("difference");
+				return doMath.apply(this, a);
+			},
+			'max': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				a.push("max");
+				return doMath.apply(this, a);
+			},
+			'mean': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				a.push("mean");
+				return doMath.apply(this, a);
+			},
+			'median': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				a.push("median");
+				return doMath.apply(this, a);
+			},
+			'medianMinMax': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				a.push("medianminmax");
+				return doMath.apply(this, a);
+			},
+			'min': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				a.push("min");
+				return doMath.apply(this, a);
+			},
+			'minMax': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				return doMath.apply(this, a);
+			},
+			'maxMin': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				var ret = doMath.apply(this, a);
+				return ret instanceof Array ? ret.sort(function(a,b) { return b - a; }) : ret;
+			},
+			'mode': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				a.push("mode");
+				return doMath.apply(this, a);
+			},
+			'product': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				a.push("product");
+				return doMath.apply(this, a);
+			},
+			'quotient': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				a.push("quotient");
+				return doMath.apply(this, a);
+			},
+			'range': function() {
+				var a = [];
+				for (x in arguments) if ((''+arguments[x]).toLowerCase() != 'min' && (''+arguments[x]).toLowerCase() != 'max') a.push(arguments[x]);
+				var minMax = doMath.apply(this, a);
+				return minMax instanceof Array && minMax.length == 2 ? minMax[1] - minMax[0] : Infinity;
+			},
+			'sum': function() {
+				var a = [];
+				for (x in arguments) a.push(arguments[x]);
+				a.push("sum");
+				return doMath.apply(this, a);
+			},
+			'runExample': function() {
+				if (!console || !console['log']) return void 0;
+				var args = arguments.length ? arguments : [9,5,8,1,-3,-3,'09.230.236',6,6,6,-5.7,-2,1,3],
+					exts = [ 'average', 'difference', 'max', 'mean', 'median', 'medianMinMax', 'min', 'minMax', 'maxMin', 'mode', 'product', 'quotient', 'range', 'sum' ];
+				if (args[0] instanceof Array) args = args[0];
+				for (x in exts) {
+					var str = "Math." + exts[x] + "(" + args.toString() + "):";
+					console.log(str + (str.length < 56 ? "\t\t\t" : (str.length < 60 ? "\t\t" : "\t")), Math[exts[x]].apply(Math, args));
+				}
+				return "Thank you for trying my Math extensions!";
 			}
-			return "Thank you for trying my Math extensions!";
 		}
-	});
-
+	
+	for (var name in props) {
+		var method = props[name];
+		Object['defineProperty'] && !Math.hasOwnProperty(name)
+			? Object.defineProperty(Math, name, { value: method }) : Math[name] = method;
+	}
 })(Math);
