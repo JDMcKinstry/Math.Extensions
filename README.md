@@ -1,6 +1,10 @@
 # Math.Extensions
 Simple extensions and a couple overrides to make the Math object a bit more "Math"
 
+## Quick Links
+ - [Raw JS](https://rawgit.com/JDMcKinstry/Math.Extensions/master/math.extensions.js)
+ - [Raw JS Minified](https://rawgit.com/JDMcKinstry/Math.Extensions/master/Math.extensions.min.js)
+
 ###I made figuring it out even easier!
 Just throw the JS in your page and open the console. Then simply run "Math.runExample()". There you go! Enjoy!
 
