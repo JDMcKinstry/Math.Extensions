@@ -1,19 +1,19 @@
 /**	Math[extensions]()
- *	Math.average()
- *	Math.difference()
- *	Math.max()
- *	Math.mean()
- *	Math.median()
- *	Math.medianMinMax()
- *	Math.min()
- *	Math.minMax()
- *	Math.mode()
- *	Math.product()
- *	Math.quotient()
- *	Math.range()
- *	Math.sum()
- *	Math.runExample()
- *	Math.rand()
+ *	Math.average()		//	A calculated "central" value of a set of numbers
+ *	Math.difference()	//	Subtraction
+ *	Math.max()			//	Maximum number in a range of numbers
+ *	Math.mean()			//	Same thing as Average, just more proper term
+ *	Math.median()		//	Denoting the middle term of a series arranged in order of magnitude
+ *	Math.medianMinMax()	//	Minimum and Maximum, if different, of median. If same, then just that number
+ *	Math.min()			//	Minimum # in a range of numbers
+ *	Math.minMax()		//	Minimum and Maximum numbers in a range of numbers
+ *	Math.mode()			//	Most occuring # in a range of numbers, or "-Infinity" if non-existant
+ *	Math.product()		//	A quantity obtained by multiplying quantities together, or from an analogous algebraic operation
+ *	Math.quotient()		//	A result obtained by dividing one quantity by another
+ *	Math.range()		//	The difference between the lowest and highest values
+ *	Math.sum()			//	Addition
+ *	Math.runExample()	//	Creates an example of each new extension to be viewed in console
+ *	Math.rand()			//	Random number between 2 numbers. 3rd param true will include decimals, or a number for set decimal places
  **/
 ;(function() {
 	/*	[ 'average', 'difference', 'max', 'mean', 'median', 'medianMinMax', 'min', 'minMax', 'maxMin', 'mode', 'product', 'quotient', 'range', 'sum' ]	*/
